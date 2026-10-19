@@ -9,7 +9,7 @@
 # survive restarts and redeploys.
 kind: wasmer.io/App.v0
 name: mathnest
-owner: YOUR_WASMER_USERNAME
+owner: jacobi
 package: .
 volumes:
   - name: data
