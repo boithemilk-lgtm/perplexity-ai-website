@@ -1,0 +1,30 @@
+# Optional manual deploy to Wasmer Edge.
+#
+# The recommended deployment path is the Wasmer dashboard's GitHub connection
+# (App → Git settings → GitHub provider) — it deploys on every push without
+# needing any secrets. This workflow is a manual, opt-in alternative for CLI
+# deploys from GitHub Actions.
+#
+# To use it:
+#   1. Create a Wasmer access token at https://wasmer.io/settings/access-tokens
+#   2. Add it as a repository secret named WASMER_TOKEN
+#   3. Run this workflow from the Actions tab
+
+name: Deploy to Wasmer Edge (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Wasmer
+        uses: wasmerio/setup-wasmer@v3.1
+
+      - name: Deploy
+        run: wasmer deploy --non-interactive --build-remote
+        env:
+          WASMER_TOKEN: ${{ secrets.WASMER_TOKEN }}
